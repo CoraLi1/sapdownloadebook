@@ -5,10 +5,22 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:build-win": "vue-cli-service electron:build -p never -w",
+    "electron:build-mac": "vue-cli-service electron:build -p never -m",
+    "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps"
   },
+  "main": "background.js",
+  "asar": false,
   "dependencies": {
     "core-js": "^3.6.5",
+    "element-ui": "^2.15.3",
+    "fix-path": "^3.0.0",
+    "minimist": "^1.2.5",
+    "puppeteer": "^10.1.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -17,12 +29,16 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-standard": "^5.1.2",
     "babel-eslint": "^10.1.0",
+    "electron": "^11.0.0",
+    "electron-builder": "^22.11.7",
+    "electron-devtools-installer": "^3.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "vue-cli-plugin-electron-builder": "~2.1.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -43,5 +59,6 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "appId": "com.ipp.electronvue"
 }
