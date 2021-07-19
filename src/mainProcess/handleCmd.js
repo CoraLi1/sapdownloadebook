@@ -2,7 +2,7 @@
 const childProcess = require('child_process')
 export function startChrome ({ chromeUrl, basePath }) {
   console.log('🚀 ~ file: handleCmd.js ~ line 4 ~ startChrome ~ basePath', basePath)
-  const cmdStr = `node openChrome.js --chrome=${chromeUrl}` // 要运行的命令
+  const cmdStr = `node --inspect-brk openChrome.js --chrome=${chromeUrl}` // 要运行的命令
 
   runExec(cmdStr)
 
@@ -29,7 +29,7 @@ export function startDownload ({ chromeUrl, downloadLink, directory, fontPath, b
     '--fontPath=' + fontPath
   ]
 
-  const cmdStr = `node index.js ${args.join(' ')}` // 要运行的命令
+  const cmdStr = `node --inspect-brk index.js ${args.join(' ')}` // 要运行的命令
   console.log('🚀 ~ file: handleCmd.js ~ line 18 ~ runExec ~ cmdStr', cmdStr, basePath)
 
   runExec(cmdStr)
