@@ -1,5 +1,9 @@
 <template>
   <div class="main">
+    <div>
+      <span>{{ logObj.status }}:</span>
+      <span>{{ logObj.data || logObj.code }}:</span>
+    </div>
     <el-form ref="form" :model="form" label-width="150px">
       <!-- <button @click="testNode">测试node</button> -->
       <el-card class="box-card">
@@ -50,7 +54,8 @@ export default {
         directory: '',
         fontPath: ''
       },
-      btnDisable: false
+      btnDisable: false,
+      logObj: {}
     }
   },
   mounted () {
@@ -91,12 +96,14 @@ export default {
       ipcRenderer.send('async-msg', this.form)
       ipcRenderer.on('async-reply', (event, arg) => {
         this.btnDisable = false
+        this.logObj = arg
         console.log(arg)
       })
     },
     startDownload () {
       ipcRenderer.send('async-start-download', this.form)
       ipcRenderer.on('async-start-download-reply', (event, arg) => {
+        this.logObj = arg
         console.log(arg)
       })
     }

@@ -72,27 +72,63 @@ app.on('ready', async () => {
   }
   createWindow()
 })
-app.on('ready', () => {
-  const serverProcess = require('child_process').exec('node --version')
-  serverProcess.stdout.on('data', function (data) {
-    console.log('node stdout:' + data)// 打印正常的后台可执行程序输出
-  })
-  serverProcess.stderr.on('data', function (data) {
-    console.log('node stderr:' + data) // 打印错误的后台可执行程序输出
-  })
-  serverProcess.on('close', function (code) {
-    console.log('out code:' + code) // 退出之后的输出
-  })
-})
 
-ipcMain.on('async-msg', (event, arg) => {
-  startChrome(arg) // 启动浏览器
-  event.reply('async-reply')
+ipcMain.on('async-msg', async (event, arg) => {
+  const openChromeProcess = await startChrome(arg) // 启动浏览器
+  openChromeProcess.stdout.on('data', function (data) {
+    console.log('chrome 启动成功 stdout:' + data)// 打印正常的后台可执行程序输出
+    event.reply('async-reply', {
+      status: 'success',
+      data
+    })
+  })
+  openChromeProcess.stderr.on('data', function (data) {
+    console.log('stderr:' + data) // 打印错误的后台可执行程序输出
+    event.reply('async-reply', {
+      status: 'error',
+      data
+    })
+  })
+  openChromeProcess.on('close', function (code) {
+    console.log('out code:' + code) // 退出之后的输出
+    event.reply('async-reply', {
+      status: 'close',
+      code
+    })
+  })
+  event.reply('async-start-download-reply', {
+    status: 'none',
+    data: openChromeProcess
+  })
 })
 
 ipcMain.on('async-start-download', (event, arg) => {
-  startDownload(arg) // 下载pdf
-  event.reply('async-start-download-reply', '下载中')
+  const downloadProcess = startDownload(arg) // 下载pdf
+  downloadProcess.stdout.on('data', function (data) {
+    console.log('chrome 启动成功 stdout:' + data)// 打印正常的后台可执行程序输出
+    event.reply('async-reply', {
+      status: 'success',
+      data
+    })
+  })
+  downloadProcess.stderr.on('data', function (data) {
+    console.log('stderr:' + data) // 打印错误的后台可执行程序输出
+    event.reply('async-reply', {
+      status: 'error',
+      data
+    })
+  })
+  downloadProcess.on('close', function (code) {
+    console.log('out code:' + code) // 退出之后的输出
+    event.reply('async-reply', {
+      status: 'close',
+      code
+    })
+  })
+  event.reply('async-start-download-reply', {
+    status: 'none',
+    data: downloadProcess
+  })
 })
 
 // Exit cleanly on request from parent process in development mode.

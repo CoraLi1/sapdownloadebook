@@ -20,7 +20,6 @@
     "element-ui": "^2.15.3",
     "fix-path": "^3.0.0",
     "minimist": "^1.2.5",
-    "puppeteer": "^10.1.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
