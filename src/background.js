@@ -21,7 +21,7 @@ async function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 700,
     webPreferences: {
 
       // Use pluginOptions.nodeIntegration, leave this alone
@@ -30,7 +30,7 @@ async function createWindow () {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
     }
   })
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -73,25 +73,25 @@ app.on('ready', async () => {
   createWindow()
 })
 
-ipcMain.on('async-msg', async (event, arg) => {
+ipcMain.on('async-open-chrome', async (event, arg) => {
   const openChromeProcess = await startChrome(arg) // 启动浏览器
   openChromeProcess.stdout.on('data', function (data) {
     console.log('chrome 启动成功 stdout:' + data)// 打印正常的后台可执行程序输出
-    event.reply('async-reply', {
+    event.reply('async-open-chrome-reply', {
       status: 'success',
       data
     })
   })
   openChromeProcess.stderr.on('data', function (data) {
     console.log('stderr:' + data) // 打印错误的后台可执行程序输出
-    event.reply('async-reply', {
+    event.reply('async-open-chrome-reply', {
       status: 'error',
       data
     })
   })
   openChromeProcess.on('close', function (code) {
     console.log('out code:' + code) // 退出之后的输出
-    event.reply('async-reply', {
+    event.reply('async-open-chrome-reply', {
       status: 'close',
       code
     })
@@ -102,25 +102,25 @@ ipcMain.on('async-msg', async (event, arg) => {
   })
 })
 
-ipcMain.on('async-start-download', (event, arg) => {
-  const downloadProcess = startDownload(arg) // 下载pdf
+ipcMain.on('async-start-download', async (event, arg) => {
+  const downloadProcess = await startDownload(arg) // 下载pdf
   downloadProcess.stdout.on('data', function (data) {
     console.log('chrome 启动成功 stdout:' + data)// 打印正常的后台可执行程序输出
-    event.reply('async-reply', {
+    event.reply('async-start-download-reply', {
       status: 'success',
       data
     })
   })
   downloadProcess.stderr.on('data', function (data) {
     console.log('stderr:' + data) // 打印错误的后台可执行程序输出
-    event.reply('async-reply', {
+    event.reply('async-start-download-reply', {
       status: 'error',
       data
     })
   })
   downloadProcess.on('close', function (code) {
     console.log('out code:' + code) // 退出之后的输出
-    event.reply('async-reply', {
+    event.reply('async-start-download-reply', {
       status: 'close',
       code
     })

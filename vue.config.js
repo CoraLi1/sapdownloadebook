@@ -37,49 +37,49 @@ module.exports = {
     electronBuilder: {
       nodeIntegration: true,
       // externals: ['@revincx/unblockneteasemusic'],
-      // builderOptions: {
-      //   productName: 'sapdownloadebook',
-      //   copyright: '',
-      //   // compression: "maximum", // 机器好的可以打开，配置压缩，开启后会让 .AppImage 格式的客户端启动缓慢
-      //   asar: true,
-      //   publish: [
-      //     {
-      //       provider: 'github',
-      //       owner: 'Cora',
-      //       repo: 'sapdownloadebook',
-      //       vPrefixedTagName: true,
-      //       releaseType: 'draft'
-      //     }
-      //   ],
-      //   directories: {
-      //     output: 'dist_electron'
-      //   },
-      //   mac: {
-      //     target: [
-      //       {
-      //         target: 'dmg',
-      //         arch: ['x64', 'arm64', 'universal']
-      //       }
-      //     ],
-      //     // artifactName: '${productName}-${os}-${version}-${arch}.${ext}',
-      //     // category: 'public.app-category.music',
-      //     darkModeSupport: true
-      //   },
-      //   win: {
-      //     target: [
-      //       {
-      //         target: 'portable',
-      //         arch: ['x64']
-      //       },
-      //       {
-      //         target: 'nsis',
-      //         arch: ['x64']
-      //       }
-      //     ],
-      //     publisherName: 'sapdownloadebook',
-      //     // icon: 'build/icons/icon.ico',
-      //     publish: ['github']
-      //   },
+      builderOptions: {
+        productName: 'sapdownloadebook',
+        // copyright: '',
+        //   // compression: "maximum", // 机器好的可以打开，配置压缩，开启后会让 .AppImage 格式的客户端启动缓慢
+        //   asar: true,
+        // publish: [
+        //     {
+        //       provider: 'github',
+        //       owner: 'Cora',
+        //       repo: 'sapdownloadebook',
+        //       vPrefixedTagName: true,
+        //       releaseType: 'draft'
+        //     }
+        //   ],
+        //   directories: {
+        //     output: 'dist_electron'
+        //   },
+        //   mac: {
+        //     target: [
+        //       {
+        //         target: 'dmg',
+        //         arch: ['x64', 'arm64', 'universal']
+        //       }
+        //     ],
+        //     // artifactName: '${productName}-${os}-${version}-${arch}.${ext}',
+        //     // category: 'public.app-category.music',
+        //     darkModeSupport: true
+        //   },
+        win: {
+          target: [
+            {
+              target: 'portable',
+              arch: ['x64']
+            },
+            {
+              target: 'nsis',
+              arch: ['x64']
+            }
+          ],
+          publisherName: 'sapdownloadebook',
+          // icon: 'build/icons/icon.ico',
+          publish: ['github']
+        }
       //   linux: {
       //     target: [
       //       {
@@ -106,7 +106,7 @@ module.exports = {
       //         target: 'pacman',
       //         arch: ['x64']
       //       }
-      //     ]
+        // ]
       //     // category: 'Music',
       //     // icon: './build/icon.icns'
       //   },
@@ -118,7 +118,7 @@ module.exports = {
       //     perMachine: true,
       //     deleteAppDataOnUninstall: true
       //   }
-      // },
+      },
       // 主线程的配置文件
       chainWebpackMainProcess: (config) => {
         config.plugin('define').tap((args) => {

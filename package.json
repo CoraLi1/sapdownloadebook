@@ -7,14 +7,13 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "electron:build": "vue-cli-service electron:build",
-    "electron:build-win": "vue-cli-service electron:build -p never -w",
     "electron:build-mac": "vue-cli-service electron:build -p never -m",
+    "electron:build-win": "vue-cli-service electron:build -p never -w",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
   "main": "background.js",
-  "asar": false,
   "dependencies": {
     "core-js": "^3.6.5",
     "element-ui": "^2.15.3",
@@ -59,5 +58,6 @@
     "last 2 versions",
     "not dead"
   ],
-  "appId": "com.ipp.electronvue"
+  "appId": "com.ipp.electronvue",
+  "asar": false
 }
